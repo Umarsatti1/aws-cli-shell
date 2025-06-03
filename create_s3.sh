@@ -20,7 +20,7 @@ install_awscli() {
     aws --version
 }
 
-# Check if the bucket exists with the same name (using s3api head-bucket)
+# Check if the bucket exists
 check_bucket_exists() {
     local bucket_name="$1"
     if aws s3api head-bucket --bucket "$bucket_name" 2>/dev/null; then
@@ -54,8 +54,8 @@ main() {
     check_awscli
 
     # Set your values here or pass them in as arguments
-    BUCKET_NAME="${1:-}"   # Accepts as first argument
-    REGION="${2:-us-east-1}" # Defaults to us-east-1
+    BUCKET_NAME="$1"   # Accepts as first argument
+    REGION="$2"        # Accepts as second argument
 
     if [[ -z "$BUCKET_NAME" ]]; then
         echo "Error: Bucket name is required."
